@@ -116,7 +116,9 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 			$linkgrid_output .= '<script type="text/javascript">
 				jQuery(document).ready(function($){ 
 					//Activate Masonry for Grid Items
-					$( "#mp-brick-' . $post_id . ' .mp-stacks-grid" ).masonry();	
+					$( "#mp-brick-' . $post_id . ' .mp-stacks-grid" ).imagesLoaded(function(){
+						$( "#mp-brick-' . $post_id . ' .mp-stacks-grid" ).masonry();
+					});
 				});
 				var masonry_grid_' . $post_id . ' = true;
 				</script>';

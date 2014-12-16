@@ -151,14 +151,6 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 			'field_repeater' => 'linkgrid_description_animation_keyframes',
 			'field_showhider' => 'linkgrid_description_settings',
 		),
-		'linkgrid_description_read_more_text' => array(
-			'field_id'			=> 'linkgrid_description_read_more_text',
-			'field_title' 	=> __( '"Read More" Text for Description\'s', 'mp_stacks_linkgrid'),
-			'field_description' 	=> __( 'What should the "Read More" text be at the end of the Description? Default: "Read More". Leave blank for no output.', 'mp_stacks_linkgrid' ),
-			'field_type' 	=> 'textbox',
-			'field_value' => __( 'Read More', 'mp_stacks_linkgrid' ),
-			'field_showhider' => 'linkgrid_description_settings',
-		),
 		//Description Background
 		'linkgrid_description_bg_showhider' => array(
 			'field_id'			=> 'linkgrid_description_background_settings',
@@ -228,9 +220,6 @@ function mp_stacks_linkgrid_description_placement_options( $placement_options, $
 	//get word limit for exceprts
 	$placement_options['word_limit'] = mp_core_get_post_meta($post_id, 'linkgrid_description_word_limit', 20);
 	
-	//Get Read More Text for descriptions
-	$placement_options['read_more_text'] = mp_core_get_post_meta($post_id, 'linkgrid_description_read_more_text', __( '...Read More', 'mp_stacks_linkgrid' ) );
-	
 	return $placement_options;	
 }
 add_filter( 'mp_stacks_linkgrid_placement_options', 'mp_stacks_linkgrid_description_placement_options', 10, 2 );
@@ -242,10 +231,9 @@ add_filter( 'mp_stacks_linkgrid_placement_options', 'mp_stacks_linkgrid_descript
  * @since    1.0.0
  * @param    $post_id Int - The ID of the post to get the description of
  * @param    $word_limit Int - The total number of words to include in the description
- * @param    $read_more_text String - The ID of the post to get the title of
  * @return   $html_output String - A string holding the html for an description in the grid
  */
-function mp_stacks_linkgrid_description( $link, $word_limit, $read_more_text = NULL ){
+function mp_stacks_linkgrid_description( $link, $word_limit ){
 	
 	$the_description = $link['linkgrid_link_description'];
 	
@@ -262,8 +250,6 @@ function mp_stacks_linkgrid_description( $link, $word_limit, $read_more_text = N
 	else{
 		
 		$output_string = strip_tags($the_description);
-		
-		$output_string .= !empty( $read_more_text ) ? '<span class="mp-stacks-linkgrid-read-more">' . $read_more_text . '</span>' : NULL;
 		
 	}
 	
@@ -290,7 +276,7 @@ function mp_stacks_linkgrid_description_top_over_callback( $linkgrid_output, $li
 	//If we should show the description over the image
 	if ( strpos( $options['description_placement'], 'over') !== false && strpos( $options['description_placement'], 'top') !== false && $options['description_show']){
 		
-		return $linkgrid_output . mp_stacks_linkgrid_description( $link, $options['word_limit'], $options['read_more_text'] );
+		return $linkgrid_output . mp_stacks_linkgrid_description( $link, $options['word_limit'] );
 
 	}
 	
@@ -312,7 +298,7 @@ function mp_stacks_linkgrid_description_middle_over_callback( $linkgrid_output, 
 	//If we should show the description over the image
 	if ( strpos( $options['description_placement'], 'over') !== false && strpos( $options['description_placement'], 'middle') !== false && $options['description_show']){
 		
-		return $linkgrid_output . mp_stacks_linkgrid_description( $link, $options['word_limit'], $options['read_more_text'] );
+		return $linkgrid_output . mp_stacks_linkgrid_description( $link, $options['word_limit'] );
 
 	}
 	
@@ -333,7 +319,7 @@ function mp_stacks_linkgrid_description_bottom_over_callback( $linkgrid_output, 
 	//If we should show the description over the image
 	if ( strpos( $options['description_placement'], 'over') !== false && strpos( $options['description_placement'], 'bottom') !== false && $options['description_show']){
 		
-		return $linkgrid_output . mp_stacks_linkgrid_description( $link, $options['word_limit'], $options['read_more_text'] );
+		return $linkgrid_output . mp_stacks_linkgrid_description( $link, $options['word_limit'] );
 
 	}
 	
@@ -356,7 +342,7 @@ function mp_stacks_linkgrid_description_below_over_callback( $linkgrid_output, $
 	if ( strpos( $options['description_placement'], 'below') !== false && $options['description_show']){
 		
 		$description_html_output = '<a href="' . get_permalink() . '" class="mp-stacks-linkgrid-description-link">';	
-			$description_html_output .= mp_stacks_linkgrid_description( $link, $options['word_limit'], $options['read_more_text'] );
+			$description_html_output .= mp_stacks_linkgrid_description( $link, $options['word_limit'] );
 		$description_html_output .= '</a>';
 		
 		return $linkgrid_output . $description_html_output;
@@ -378,7 +364,7 @@ add_filter( 'mp_stacks_linkgrid_below', 'mp_stacks_linkgrid_description_below_ov
 function mp_stacks_linkgrid_description_animation_js( $linkgrid_output, $post_id ){
 	
 	//Get JS output to animate the descriptions on mouse over and out
-	$description_animation_js = mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-linkgrid-item', '.mp-stacks-linkgrid-item-description-holder', mp_core_get_post_meta( $post_id, 'linkgrid_description_animation_keyframes', array() ) ); 
+	$description_animation_js = mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-linkgrid-item-description-holder', mp_core_get_post_meta( $post_id, 'linkgrid_description_animation_keyframes', array() ) ); 
 
 	return $linkgrid_output . $description_animation_js;
 }
