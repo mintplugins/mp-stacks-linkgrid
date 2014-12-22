@@ -34,5 +34,5 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 == Changelog ==
 
 
-= 1.0.0.0 = December 15, 2014
+= 1.0.0.0 = December 22, 2014
 * Original release
