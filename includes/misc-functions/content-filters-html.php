@@ -168,7 +168,20 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 					
 						$linkgrid_output .= '<div class="mp-stacks-grid-item-image-overlay"></div>';
 						
-						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link">';
+						$target = NULL;
+						$lightbox_class = NULL;	
+							
+						//Get this links open-type
+						if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
+							$target = ' target="' . $link['linkgrid_link_open_type'] . '" ';	
+							$lightbox_class = NULL;	
+						}
+						elseif( $link['linkgrid_link_open_type'] == 'lightbox' ){
+							$target = NULL;
+							$lightbox_class = 'mp-stacks-lightbox-link';	
+						}
+						
+						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '>';
 						
 						$linkgrid_output .= '<img src="' . $link['linkgrid_link_image'] . '" class="mp-stacks-grid-item-image" title="' . $link['linkgrid_link_url'] . '" />';
 						

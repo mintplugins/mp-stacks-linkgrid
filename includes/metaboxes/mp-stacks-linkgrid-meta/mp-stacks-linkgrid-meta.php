@@ -60,6 +60,16 @@ function mp_stacks_linkgrid_create_meta_box(){
 			'field_showhider' => 'linkgrid_links_showhider',
 			'field_repeater' => 'linkgrid_links_repeater',
 		),
+		'linkgrid_link_open_type' => array(
+			'field_id'			=> 'linkgrid_link_open_type',
+			'field_title' 	=> __( 'Link Open-Type', 'mp_stacks_linkgrid'),
+			'field_description' 	=> __( 'How should this link open when clicked?', 'mp_stacks_linkgrid' ),
+			'field_type' 	=> 'select',
+			'field_select_values' 	=> array( '_parent' => __( 'Current Window/Tab', 'mp_stacks_linkgrid' ), '_blank' => __('New Window/Tab', 'mp_stacks_linkgrid' ), 'lightbox' => __('In a Popup Lightbox', 'mp_stacks_linkgrid' ) ),
+			'field_value' => '',
+			'field_showhider' => 'linkgrid_links_showhider',
+			'field_repeater' => 'linkgrid_links_repeater',
+		),
 		'linkgrid_link_image' => array(
 			'field_id'			=> 'linkgrid_link_image',
 			'field_title' 	=> __( 'Link Image', 'mp_stacks_linkgrid'),
