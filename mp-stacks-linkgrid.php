@@ -91,6 +91,12 @@ function mp_stacks_linkgrid_textdomain() {
 }
 add_action( 'init', 'mp_stacks_linkgrid_textdomain', 1 );
 
+
+/**
+ * Activation Hook Function - Sets up Rewrite Rules etc
+ */
+require( MP_STACKS_LINKGRID_PLUGIN_DIR . 'includes/misc-functions/install.php' );
+
 /*
 |--------------------------------------------------------------------------
 | INCLUDES
