@@ -59,7 +59,7 @@ function mp_stacks_linkgrid_install() {
 	$mp_stacks_linkgrid_activation = true;
 
 }
-register_activation_hook( MP_STACKS_DOWNLOADGRID_PLUGIN_FILE, 'mp_stacks_linkgrid_install' );
+register_activation_hook( MP_STACKS_LINKGRID_PLUGIN_FILE, 'mp_stacks_linkgrid_install' );
 
 /**
  * Runs in the shutdown function upon activation so we can flush the rewrite rules after the new ones have been added.
