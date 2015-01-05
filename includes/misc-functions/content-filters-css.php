@@ -36,7 +36,7 @@ function mp_stacks_brick_content_output_css_linkgrid( $css_output, $post_id, $fi
 	$linkgrid_post_spacing = mp_core_get_post_meta($post_id, 'linkgrid_post_spacing', '20');
 	
 	//Padding inside the featured images
-	$linkgrid_featured_images_inner_margin = mp_core_get_post_meta($post_id, 'linkgrid_featured_images_inner_margin', '10' );
+	$linkgrid_link_images_inner_margin = mp_core_get_post_meta($post_id, 'linkgrid_link_images_inner_margin', '20' );
 	
 	//Image Overlay Color and Opacity
 	$linkgrid_images_overlay_color = mp_core_get_post_meta($post_id, 'linkgrid_images_overlay_color', '#FFF' );
@@ -61,7 +61,7 @@ function mp_stacks_brick_content_output_css_linkgrid( $css_output, $post_id, $fi
 	#mp-brick-' . $post_id . ' .mp-stacks-grid-over-image-text-container-top,
 	#mp-brick-' . $post_id . ' .mp-stacks-grid-over-image-text-container-middle,
 	#mp-brick-' . $post_id . ' .mp-stacks-grid-over-image-text-container-bottom{' . 
-		mp_core_css_line( 'padding', $linkgrid_featured_images_inner_margin, 'px' ) . 
+		mp_core_css_line( 'padding', $linkgrid_link_images_inner_margin, 'px' ) . 
 	'}';
 	
 	//Get the css output for the image overlay for mobile

@@ -100,6 +100,10 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 	//Show Item Images?
 	$linkgrid_link_images_show = mp_core_get_post_meta($post_id, 'linkgrid_link_images_show');
 	
+	//Images Widths and Heights
+	$linkgrid_link_images_width = mp_core_get_post_meta($post_id, 'linkgrid_link_images_width', 500);
+	$linkgrid_link_images_height = mp_core_get_post_meta($post_id, 'linkgrid_link_images_height', 0);
+	
 	//Get the options for the grid placement - we pass this to the action filters for text placement
 	$grid_placement_options = apply_filters( 'mp_stacks_linkgrid_placement_options', NULL, $post_id );
 	
@@ -183,7 +187,7 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 						
 						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '>';
 						
-						$linkgrid_output .= '<img src="' . $link['linkgrid_link_image'] . '" class="mp-stacks-grid-item-image" title="' . $link['linkgrid_link_url'] . '" />';
+						$linkgrid_output .= '<img src="' . mp_aq_resize( $link['linkgrid_link_image'], $linkgrid_link_images_width, $linkgrid_link_images_height, true ) . '" class="mp-stacks-grid-item-image" title="' . $link['linkgrid_link_url'] . '" />';
 						
 						//Top Over
 						$linkgrid_output .= '<div class="mp-stacks-grid-over-image-text-container-top">';

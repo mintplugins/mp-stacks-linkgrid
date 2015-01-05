@@ -169,17 +169,17 @@ function mp_stacks_linkgrid_create_meta_box(){
 		'linkgrid_link_img_width' => array(
 			'field_id'			=> 'linkgrid_link_images_width',
 			'field_title' 	=> __( 'Link Image Width', 'mp_stacks_linkgrid'),
-			'field_description' 	=> __( 'How wide should the images be in pixels? Default 300', 'mp_stacks_linkgrid' ),
+			'field_description' 	=> __( 'How wide should the images be in pixels? Default 500', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'number',
-			'field_value' => '300',
+			'field_value' => '500',
 			'field_showhider' => 'linkgrid_link_images_settings',
 		),
 		'linkgrid_link_img_height' => array(
 			'field_id'			=> 'linkgrid_link_images_height',
 			'field_title' 	=> __( 'Link Image Height', 'mp_stacks_linkgrid'),
-			'field_description' 	=> __( 'How high should the images be in pixels? Default 200. Set to 0 to scale height based on width without cropping image.', 'mp_stacks_linkgrid' ),
+			'field_description' 	=> __( 'How high should the images be in pixels? Default 0. Set to 0 to scale without cropping any of the image.', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'number',
-			'field_value' => '200',
+			'field_value' => '0',
 			'field_showhider' => 'linkgrid_link_images_settings',
 		),
 		'linkgrid_link_img_inner_margin' => array(
