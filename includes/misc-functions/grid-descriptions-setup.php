@@ -188,7 +188,7 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 			'field_id'			=> 'linkgrid_description_background_opacity',
 			'field_title' 	=> __( 'Description Background Opacity', 'mp_stacks_linkgrid'),
 			'field_description' 	=> __( 'Set the opacity percentage? Default: 100', 'mp_stacks_linkgrid' ),
-			'field_type' 	=> 'number',
+			'field_type' 	=> 'input_range',
 			'field_value' => '100',
 			'field_showhider' => 'linkgrid_description_background_settings',
 		),
@@ -341,7 +341,17 @@ function mp_stacks_linkgrid_description_below_over_callback( $linkgrid_output, $
 	//If we should show the description below the image
 	if ( strpos( $options['description_placement'], 'below') !== false && $options['description_show']){
 		
-		$description_html_output = '<a href="' . get_permalink() . '" class="mp-stacks-linkgrid-description-link">';	
+		//Get this links open-type
+		if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
+			$target = ' target="' . $link['linkgrid_link_open_type'] . '" ';	
+			$lightbox_class = NULL;	
+		}
+		elseif( $link['linkgrid_link_open_type'] == 'lightbox' ){
+			$target = NULL;
+			$lightbox_class = 'mp-stacks-lightbox-link';	
+		}
+						
+		$description_html_output = '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-linkgrid-description-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '">';	
 			$description_html_output .= mp_stacks_linkgrid_description( $link, $options['word_limit'] );
 		$description_html_output .= '</a>';
 		

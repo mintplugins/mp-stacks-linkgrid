@@ -178,7 +178,7 @@ function mp_stacks_linkgrid_title_meta_options( $items_array ){
 			'field_id'			=> 'linkgrid_title_background_opacity',
 			'field_title' 	=> __( 'Title Background Opacity', 'mp_stacks_linkgrid'),
 			'field_description' 	=> __( 'Set the opacity percentage? Default: 100', 'mp_stacks_linkgrid' ),
-			'field_type' 	=> 'number',
+			'field_type' 	=> 'input_range',
 			'field_value' => '100',
 			'field_showhider' => 'linkgrid_title_background_settings',
 		)
@@ -309,7 +309,18 @@ function mp_stacks_linkgrid_title_below_over_callback( $linkgrid_output, $link, 
 	//If we should show the title below the image
 	if ( strpos( $options['title_placement'], 'below') !== false && $options['title_show']){
 		
-		$title_html_output = '<a href="' . get_permalink() . '" class="mp-stacks-linkgrid-title-link">';	
+		
+		//Get this links open-type
+		if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
+			$target = ' target="' . $link['linkgrid_link_open_type'] . '" ';	
+			$lightbox_class = NULL;	
+		}
+		elseif( $link['linkgrid_link_open_type'] == 'lightbox' ){
+			$target = NULL;
+			$lightbox_class = 'mp-stacks-lightbox-link';	
+		}
+		
+		$title_html_output = '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-linkgrid-title-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '>';	
 			$title_html_output .= mp_stacks_linkgrid_title( $link );
 		$title_html_output .= '</a>';
 		

@@ -34,5 +34,8 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 == Changelog ==
 
 
+= 1.0.0.1 = January 8, 2015
+* Fixed - Links weren’t working if the title or description was below the image.
+
 = 1.0.0.0 = December 22, 2014
 * Original release
