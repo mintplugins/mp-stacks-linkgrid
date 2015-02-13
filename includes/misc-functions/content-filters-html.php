@@ -185,9 +185,9 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 							$lightbox_class = 'mp-stacks-lightbox-link';	
 						}
 						
-						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '>';
+						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '">';
 						
-						$linkgrid_output .= '<img src="' . mp_aq_resize( $link['linkgrid_link_image'], $linkgrid_link_images_width, $linkgrid_link_images_height, true ) . '" class="mp-stacks-grid-item-image" title="' . $link['linkgrid_link_url'] . '" />';
+						$linkgrid_output .= '<img src="' . mp_aq_resize( $link['linkgrid_link_image'], $linkgrid_link_images_width, $linkgrid_link_images_height, true ) . '" class="mp-stacks-grid-item-image" title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" />';
 						
 						//Top Over
 						$linkgrid_output .= '<div class="mp-stacks-grid-over-image-text-container-top">';

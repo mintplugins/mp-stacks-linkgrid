@@ -309,6 +309,9 @@ function mp_stacks_linkgrid_title_below_over_callback( $linkgrid_output, $link, 
 	//If we should show the title below the image
 	if ( strpos( $options['title_placement'], 'below') !== false && $options['title_show']){
 		
+		//Defaults
+		$target = ' target="" ';	
+		$lightbox_class = NULL;	
 		
 		//Get this links open-type
 		if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
@@ -320,7 +323,7 @@ function mp_stacks_linkgrid_title_below_over_callback( $linkgrid_output, $link, 
 			$lightbox_class = 'mp-stacks-lightbox-link';	
 		}
 		
-		$title_html_output = '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-linkgrid-title-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '>';	
+		$title_html_output = '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-linkgrid-title-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '">';	
 			$title_html_output .= mp_stacks_linkgrid_title( $link );
 		$title_html_output .= '</a>';
 		
