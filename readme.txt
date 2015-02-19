@@ -33,6 +33,9 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 == Changelog ==
 
+= 1.0.0.1 = February X, 2015
+* Added alt tags to outputs
+* Changed “Image Height/Width” to “Image Crop Height/Width”
 
 = 1.0.0.1 = January 8, 2015
 * Fixed - Links weren’t working if the title or description was below the image.

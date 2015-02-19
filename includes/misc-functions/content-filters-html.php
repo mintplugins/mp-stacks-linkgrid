@@ -143,6 +143,10 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 		
 		//Get JS output to animate the images overlays on mouse over and out
 		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-image-overlay',mp_core_get_post_meta( $post_id, 'linkgrid_image_overlay_animation_keyframes', array() ) ); 
+		
+			//Get JS output to animate the background on mouse over and out
+		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-inner',mp_core_get_post_meta( $post_id, 'linkgrid_bg_color_animation_keyframes', array() ) ); 
+		
 	}
 	
 	//Get Item Output
@@ -163,7 +167,7 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 			//Set the $link var 
 			$link = $linkgrid_links_repeater[$x];
 			
-			$linkgrid_output .= '<div class="mp-stacks-grid-item">';
+			$linkgrid_output .= '<div class="mp-stacks-grid-item"><div class="mp-stacks-grid-item-inner">';
 				
 				//If we should show the featured images
 				if ($linkgrid_link_images_show){
@@ -243,10 +247,15 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 					
 				}
 				
-				//Filter Hook to output HTML into the "Below" position on the featured Image
-				$linkgrid_output .= apply_filters( 'mp_stacks_linkgrid_below', NULL, $link, $grid_placement_options );
+				//Below Image Area Container:
+				$linkgrid_output .= '<div class="mp-stacks-grid-item-below-image-holder">';
+				
+					//Filter Hook to output HTML into the "Below" position on the featured Image
+					$linkgrid_output .= apply_filters( 'mp_stacks_linkgrid_below', NULL, $link, $grid_placement_options );
 			
-			$linkgrid_output .= '</div>';
+				$linkgrid_output .= '</div>';
+			
+			$linkgrid_output .= '</div></div>';
 			
 			if ( $linkgrid_per_row == $post_counter ){
 				

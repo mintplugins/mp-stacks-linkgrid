@@ -80,6 +80,14 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 			'field_value' => '18',
 			'field_showhider' => 'linkgrid_description_settings',
 		),
+		'linkgrid_description_spacing' => array(
+			'field_id'			=> 'linkgrid_description_spacing',
+			'field_title' 	=> __( 'Descriptions\' Spacing', 'mp_stacks_linkgrid'),
+			'field_description' 	=> __( 'How much space should there be between the description and the title? Default: 10', 'mp_stacks_linkgrid' ),
+			'field_type' 	=> 'number',
+			'field_value' => '10',
+			'field_showhider' => 'linkgrid_description_settings',
+		),
 		'linkgrid_description_word_limit' => array(
 			'field_id'			=> 'linkgrid_description_word_limit',
 			'field_title' 	=> __( 'Word Limit for Description', 'mp_stacks_linkgrid'),
@@ -398,6 +406,7 @@ function mp_stacks_linkgrid_description_css( $css_output, $post_id ){
 		'color' => NULL,
 		'size' => 15,
 		'lineheight' => 18,
+		'padding_top' => 10, //aka 'spacing'
 		'background_padding' => 5,
 		'background_color' => '#fff',
 		'background_opacity' => 100,
