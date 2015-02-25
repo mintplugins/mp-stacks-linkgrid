@@ -145,7 +145,7 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-image-overlay',mp_core_get_post_meta( $post_id, 'linkgrid_image_overlay_animation_keyframes', array() ) ); 
 		
 			//Get JS output to animate the background on mouse over and out
-		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-inner',mp_core_get_post_meta( $post_id, 'linkgrid_bg_color_animation_keyframes', array() ) ); 
+		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-inner',mp_core_get_post_meta( $post_id, 'linkgrid_bg_animation_keyframes', array() ) ); 
 		
 	}
 	
