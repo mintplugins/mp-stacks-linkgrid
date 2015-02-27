@@ -201,7 +201,7 @@ function mp_stacks_linkgrid_create_meta_box(){
 			),
 			'linkgrid_bg_animation_backgroundColorAlpha' => array(
 				'field_id'			=> 'backgroundColorAlpha',
-				'field_title' 	=> __( 'Background Opacity', 'mp_stacks_linkgrid'),
+				'field_title' 	=> __( 'Background Opacity (Requires Background Color)', 'mp_stacks_linkgrid'),
 				'field_description' 	=> __( 'Set the opacity percentage for the background color at this keyframe. Default: 100', 'mp_stacks_linkgrid' ),
 				'field_type' 	=> 'input_range',
 				'field_value' => '100',
