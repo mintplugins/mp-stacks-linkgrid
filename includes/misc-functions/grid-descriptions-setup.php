@@ -75,9 +75,9 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 		'linkgrid_description_lineheight' => array(
 			'field_id'			=> 'linkgrid_description_lineheight',
 			'field_title' 	=> __( 'Description Line Height', 'mp_stacks_linkgrid'),
-			'field_description' 	=> __( 'Enter the line height for the description text. Default: 18', 'mp_stacks_linkgrid' ),
+			'field_description' 	=> __( 'Enter the line height for the description text. Default: 19', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'number',
-			'field_value' => '18',
+			'field_value' => '19',
 			'field_showhider' => 'linkgrid_description_settings',
 		),
 		'linkgrid_description_spacing' => array(
@@ -405,7 +405,7 @@ function mp_stacks_linkgrid_description_css( $css_output, $post_id ){
 	$description_css_defaults = array(
 		'color' => NULL,
 		'size' => 15,
-		'lineheight' => 18,
+		'lineheight' => 19,
 		'padding_top' => 10, //aka 'spacing'
 		'background_padding' => 5,
 		'background_color' => '#fff',
