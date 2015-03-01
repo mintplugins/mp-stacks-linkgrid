@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.0.0.1
+Stable tag: 1.0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,9 +33,15 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 == Changelog ==
 
-= 1.0.0.1 = February X, 2015
+= 1.0.0.2 = March 1, 2015
 * Added alt tags to outputs
 * Changed “Image Height/Width” to “Image Crop Height/Width”
+* Post Bg Controls Added
+* Spacing between text items added
+* Velocity JS updated to use velocity.min.js instead of jquery.velocity.min.js in MP_CORE.
+* Versioning added to all enqueues.
+* Better line height presets set for titles and excerpts.
+* Added max-width option for grid images.
 
 = 1.0.0.1 = January 8, 2015
 * Fixed - Links weren’t working if the title or description was below the image.

@@ -3,7 +3,7 @@
 Plugin Name: MP Stacks + LinkGrid
 Plugin URI: http://mintplugins.com
 Description: Add-On for MP Stacks which displays links to anything, with any image, in a grid.
-Version: 1.0.0.1
+Version: 1.0.0.2
 Author: Mint Plugins
 Author URI: http://mintplugins.com
 Text Domain: mp_stacks_linkgrid
@@ -34,7 +34,7 @@ License: GPL2
 */
 // Plugin version
 if( !defined( 'MP_STACKS_LINKGRID_VERSION' ) )
-	define( 'MP_STACKS_LINKGRID_VERSION', '1.0.0.1' );
+	define( 'MP_STACKS_LINKGRID_VERSION', '1.0.0.2' );
 
 // Plugin Folder URL
 if( !defined( 'MP_STACKS_LINKGRID_PLUGIN_URL' ) )
