@@ -83,7 +83,7 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 		'linkgrid_description_spacing' => array(
 			'field_id'			=> 'linkgrid_description_spacing',
 			'field_title' 	=> __( 'Descriptions\' Spacing', 'mp_stacks_linkgrid'),
-			'field_description' 	=> __( 'How much space should there be between the description and the title? Default: 10', 'mp_stacks_linkgrid' ),
+			'field_description' 	=> __( 'How much space should there be between the description anything directly above it? Default: 10', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'number',
 			'field_value' => '10',
 			'field_showhider' => 'linkgrid_description_settings',

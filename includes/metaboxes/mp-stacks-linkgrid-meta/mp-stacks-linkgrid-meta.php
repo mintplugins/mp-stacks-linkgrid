@@ -274,8 +274,8 @@ function mp_stacks_linkgrid_create_meta_box(){
 		),
 		'linkgrid_feat_img_note' => array(
 			'field_id'			=> 'linkgrid_feat_img_note',
-			'field_title' 	=> __( 'Link Image Size Note:', 'mp_stacks_postgrid'),
-			'field_description' 	=> __( 'The following settings won\'t control the size of how the image displays. To change the actual display size of the images, change the "Links Per Row" option or change the "Maximum Content Width" under "Brick Size Settings".', 'mp_stacks_postgrid' ),
+			'field_title' 	=> __( 'Featured Image Size Note:', 'mp_stacks_linkgrid'),
+			'field_description' 	=> __( 'The following settings won\'t control the size of how the image displays. To change the actual display size of the images, change the "Downloads Per Row" option or change the "Maximum Content Width" under "Brick Size Settings".', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'basictext',
 			'field_showhider' => 'linkgrid_link_images_settings',
 		),
@@ -293,6 +293,14 @@ function mp_stacks_linkgrid_create_meta_box(){
 			'field_description' 	=> __( 'How high should the images crop-to in pixels? Set this to 0 for no cropping. Note: If your images show pixelated, increase this value.', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'number',
 			'field_value' => '0',
+			'field_showhider' => 'linkgrid_link_images_settings',
+		),
+		'linkgrid_link_img_max_width' => array(
+			'field_id'			=> 'linkgrid_link_img_max_width',
+			'field_title' 	=> __( 'Link Image Max Width', 'mp_stacks_linkgrid'),
+			'field_description' 	=> __( 'In most scenarios you\'ll want to leave this blank. But if you want the images to display smaller than the width of each grid item, enter the max-width in pixels here.', 'mp_stacks_linkgrid' ),
+			'field_type' 	=> 'number',
+			'field_value' => '',
 			'field_showhider' => 'linkgrid_link_images_settings',
 		),
 		'linkgrid_link_img_inner_margin' => array(

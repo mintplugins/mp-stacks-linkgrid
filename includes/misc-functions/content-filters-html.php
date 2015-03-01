@@ -46,16 +46,15 @@ add_filter('mp_stacks_brick_content_output', 'mp_stacks_brick_content_output_lin
  */
 function mp_linkgrid_ajax_load_more(){
 	
-	if ( !isset( $_POST['mp_stacks_grid_post_id'] ) || !isset( $_POST['mp_stacks_grid_offset'] ) || !isset( $_POST['mp_stacks_grid_post_counter'] ) ){
+	if ( !isset( $_POST['mp_stacks_grid_post_id'] ) || !isset( $_POST['mp_stacks_grid_offset'] ) ){
 		return;	
 	}
 	
 	$post_id = $_POST['mp_stacks_grid_post_id'];
 	$post_offset = $_POST['mp_stacks_grid_offset'];
-	$post_counter = $_POST['mp_stacks_grid_post_counter'];
 
 	//Because we run the same function for this and for "Load More" ajax, we call a re-usable function which returns the output
-	$linkgrid_output = mp_stacks_linkgrid_output( $post_id, $post_offset, $post_counter );
+	$linkgrid_output = mp_stacks_linkgrid_output( $post_id, $post_offset );
 	
 	echo json_encode( array(
 		'items' => $linkgrid_output['linkgrid_output'],
@@ -79,7 +78,7 @@ add_action( 'wp_ajax_nopriv_mp_stacks_linkgrid_load_more', 'mp_linkgrid_ajax_loa
  * @param    $post_offset Int - The number of posts deep we are into the loop (if doing ajax). If not doing ajax, set this to 0;
  * @return   Array - HTML output from the Grid Loop, The Load More Button, and the Animation Trigger in an array for usage in either ajax or not.
  */
-function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 1 ){
+function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 	
 	global $wp_query;
 	
@@ -257,21 +256,6 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 			
 			$linkgrid_output .= '</div></div>';
 			
-			if ( $linkgrid_per_row == $post_counter ){
-				
-				//Add clear div to bump a new row
-				$linkgrid_output .= '<div class="mp-stacks-grid-item-clearedfix"></div>';
-				
-				//Reset counter
-				$post_counter = 1;
-			}
-			else{
-				
-				//Increment Counter
-				$post_counter = $post_counter + 1;
-				
-			}
-			
 			//Increment Offset
 			$post_offset = $post_offset + 1;
 			
@@ -301,7 +285,6 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0, $post_counter = 
 		 'total_posts' => $total_posts, 
 		 'posts_per_page' => $linkgrid_per_page, 
 		 'paged' => false, 
-		 'post_counter' => $post_counter, 
 		 'post_offset' => $post_offset,
 		 'brick_slug' => $post->post_name
 	);
