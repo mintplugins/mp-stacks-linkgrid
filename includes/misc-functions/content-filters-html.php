@@ -108,48 +108,14 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 	
 	//Get the JS for animating items - only needed the first time we run this - not on subsequent Ajax requests.
 	if ( !defined('DOING_AJAX') ){
-					
-		//Check if we should apply Masonry to this grid
-		$linkgrid_masonry = mp_core_get_post_meta( $post_id, 'linkgrid_masonry' );
 		
-		//If we should apply Masonry to this grid
-		if ( $linkgrid_masonry ){
-			 
-			//Add Masonry JS 
-			$linkgrid_output .= '<script type="text/javascript">
-				jQuery(document).ready(function($){ 
-					//Activate Masonry for Grid Items
-					$( "#mp-brick-' . $post_id . ' .mp-stacks-grid" ).imagesLoaded(function(){
-						$( "#mp-brick-' . $post_id . ' .mp-stacks-grid" ).masonry();
-					});
-				});
-				var masonry_grid_' . $post_id . ' = true;
-				</script>';
-		}
-		else{
-			
-			//Set Masonry Variable to False so we know not to refresh masonry upon ajax
-			$linkgrid_output .= '<script type="text/javascript">
-				var masonry_grid_' . $post_id . ' = false;
-			</script>';	
-		}
-		
-		//Filter Hook which can be used to apply javascript output for items in this grid
-		$linkgrid_output .= apply_filters( 'mp_stacks_linkgrid_animation_js', $linkgrid_output, $post_id );
-		
-		//Get JS output to animate the images on mouse over and out
-		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-image', mp_core_get_post_meta( $post_id, 'linkgrid_image_animation_keyframes', array() ) ); 
-		
-		//Get JS output to animate the images overlays on mouse over and out
-		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-image-overlay',mp_core_get_post_meta( $post_id, 'linkgrid_image_overlay_animation_keyframes', array() ) ); 
-		
-			//Get JS output to animate the background on mouse over and out
-		$linkgrid_output .= mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-grid-item-inner',mp_core_get_post_meta( $post_id, 'linkgrid_bg_animation_keyframes', array() ) ); 
-		
+		//Here we set javascript for this grid
+		$linkgrid_output .= apply_filters( 'mp_stacks_grid_js', NULL, $post_id, 'linkgrid' );
+						
 	}
 	
-	//Get Item Output
-	$linkgrid_output .= !defined('DOING_AJAX') ? '<div class="mp-stacks-grid">' : NULL;
+	//Grid Container Output
+	$linkgrid_output .= !defined('DOING_AJAX') ? '<div class="mp-stacks-grid mp-stacks-linkgrid ' . apply_filters( 'mp_stacks_grid_classes', NULL, $post_id, 'linkgrid' ) . '">' : NULL;
 	
 	$total_posts = count( $linkgrid_links_repeater );
 	
@@ -166,7 +132,9 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 			//Set the $link var 
 			$link = $linkgrid_links_repeater[$x];
 			
-			$linkgrid_output .= '<div class="mp-stacks-grid-item"><div class="mp-stacks-grid-item-inner">';
+			$class_string = NULL;
+			$class_string = apply_filters( 'mp_stacks_grid_item_classes', $class_string, $post_id, 'linkgrid' ); 
+			$linkgrid_output .= '<div class="mp-stacks-grid-item ' . $class_string . '"><div class="mp-stacks-grid-item-inner">';
 				
 				//If we should show the featured images
 				if ($linkgrid_link_images_show){

@@ -33,12 +33,15 @@ function mp_stacks_linkgrid_enqueue_scripts(){
 	//Enqueue Waypoints JS
 	wp_enqueue_script( 'waypoints_js', MP_CORE_JS_SCRIPTS_URL . 'waypoints.min.js', array( 'jquery' ), MP_STACKS_LINKGRID_VERSION );
 	
+	//Enqueue Isotope JS
+	wp_enqueue_script( 'isotope_js', MP_CORE_JS_SCRIPTS_URL . 'isotope.pkgd.min.js', array( 'jquery' ), MP_STACKS_LINKGRID_VERSION );
+	
 	//masonry script
 	wp_enqueue_script( 'masonry' );
+	
+	//Enqueue MP Stacks Grid JS
+	wp_enqueue_script( 'mp_stacks_grid_js', MP_STACKS_PLUGIN_URL . 'includes/js/mp-stacks-grids.js', array( 'jquery', 'masonry', 'isotope_js', 'waypoints_js', 'velocity_js' ), MP_STACKS_VERSION );
 			
-	//Enqueue linkgrid JS
-	wp_enqueue_script( 'mp_stacks_linkgrid_js', plugins_url( 'js/linkgrid.js', dirname( __FILE__ ) ), array( 'jquery', 'velocity_js', 'masonry', 'waypoints_js' ), MP_STACKS_LINKGRID_VERSION );
-
 }
  
 /**
