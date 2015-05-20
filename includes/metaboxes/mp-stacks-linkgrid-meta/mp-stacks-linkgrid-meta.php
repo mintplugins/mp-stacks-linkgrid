@@ -70,6 +70,31 @@ function mp_stacks_linkgrid_create_meta_box(){
 			'field_showhider' => 'linkgrid_links_showhider',
 			'field_repeater' => 'linkgrid_links_repeater',
 		),
+		
+		'linkgrid_lightbox_width' => array(
+			'field_id'			=> 'linkgrid_lightbox_width',
+			'field_title' 	=> __( 'Lightbox Width', 'mp_stacks_linkgrid'),
+			'field_description' 	=> __( 'How wide should the popup lightbox be in pixels. Default: 640 (Size will max-out at 100% of the user\'s screen)', 'mp_stacks_linkgrid' ),
+			'field_type' 	=> 'number',
+			'field_conditional_id' 	=> 'linkgrid_link_open_type',
+			'field_conditional_values' 	=> array( 'lightbox' ),
+			'field_value' => '640',
+			'field_showhider' => 'linkgrid_links_showhider',
+			'field_repeater' => 'linkgrid_links_repeater',
+		),
+		
+		'linkgrid_lightbox_height' => array(
+			'field_id'			=> 'linkgrid_lightbox_height',
+			'field_title' 	=> __( 'Lightbox Height', 'mp_stacks_linkgrid'),
+			'field_description' 	=> __( 'How high should the popup lightbox be in pixels. Default: 360 (Size will max-out at 100% of the user\'s screen)', 'mp_stacks_linkgrid' ),
+			'field_type' 	=> 'number',
+			'field_conditional_id' 	=> 'linkgrid_link_open_type',
+			'field_conditional_values' 	=> array( 'lightbox' ),
+			'field_value' => '360',
+			'field_showhider' => 'linkgrid_links_showhider',
+			'field_repeater' => 'linkgrid_links_repeater',
+		),
+		
 		'linkgrid_link_image' => array(
 			'field_id'			=> 'linkgrid_link_image',
 			'field_title' 	=> __( 'Link Image', 'mp_stacks_linkgrid'),
@@ -269,7 +294,7 @@ function mp_stacks_linkgrid_create_meta_box(){
 			'field_title' 	=> __( 'Show Link Images?', 'mp_stacks_linkgrid'),
 			'field_description' 	=> __( 'Do you want to show the link images for these posts?', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'checkbox',
-			'field_value' => 'linkgrid_show_link_images',
+			'field_value' => 'linkgrid_link_images_show',
 			'field_showhider' => 'linkgrid_link_images_settings',
 		),
 		'linkgrid_feat_img_note' => array(
