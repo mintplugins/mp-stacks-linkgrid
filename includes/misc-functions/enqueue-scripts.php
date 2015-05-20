@@ -27,6 +27,9 @@
  */
 function mp_stacks_linkgrid_enqueue_scripts(){
 			
+	//Enqueue MP stacks Grid CSS
+	wp_enqueue_style( 'mp-stacks-grid-css', MP_STACKS_PLUGIN_URL . 'includes/css/mp-stacks-grid-styles.css', MP_STACKS_VERSION );
+	
 	//Enqueue velocity JS
 	wp_enqueue_script( 'velocity_js', MP_CORE_JS_SCRIPTS_URL . 'velocity.min.js', array( 'jquery' ), MP_STACKS_LINKGRID_VERSION );
 	
