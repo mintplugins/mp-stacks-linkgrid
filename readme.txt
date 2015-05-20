@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.0.0.3
+Stable tag: 1.0.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,12 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.4 = May 20, 2015
+* Make CSS Filter add to css instead of replacing previous CSS. This fixes bug with Google Fonts Addon not working fi the type was a LinkGrid.
+* Fixed Title and Description Animations not working because of new mp_stacks_js_output filter hook replacing old animation hook.
+* Enqueue MP Stacks Grid css (new file in MP Stacsk Specific to grids)
+* Added lightbox sizing support for links
 
 = 1.0.0.3 = April 25, 2015
 * Isotope filtering added - without controls though for now. This keeps this grid in sync with other grids and keep masonry working as it should.
