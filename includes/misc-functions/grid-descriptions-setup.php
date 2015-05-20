@@ -44,7 +44,7 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 			'field_title' 	=> __( 'Show Descriptions?', 'mp_stacks_linkgrid'),
 			'field_description' 	=> __( 'Do you want to show the Descriptions for these posts?', 'mp_stacks_linkgrid' ),
 			'field_type' 	=> 'checkbox',
-			'field_value' => 'true',
+			'field_value' => 'linkgrid_description_show',
 			'field_showhider' => 'linkgrid_description_settings',
 		),
 		'linkgrid_description_placement' => array(
@@ -376,21 +376,27 @@ function mp_stacks_linkgrid_description_below_over_callback( $linkgrid_output, $
 add_filter( 'mp_stacks_linkgrid_below', 'mp_stacks_linkgrid_description_below_over_callback', 15, 3 );
 
 /**
- * Add the JS for the description to LinkGrid's HTML output
+ * Add the JS for the title to PostGrid's HTML output
  *
  * @access   public
  * @since    1.0.0
- * @param    $linkgrid_output String - The output for linkgrid up until this point.
- * @return   $linkgrid_output String - The incoming HTML with the new JS animation for the description appended.
+ * @param    $existing_filter_output String - Any output already returned to this filter previously
+ * @param    $post_id String - the ID of the Brick where all the meta is saved.
+ * @param    $meta_prefix String - the prefix to put before each meta_field key to differentiate it from other plugins. :EG "linkgrid"
+ * @return   $new_grid_output - the existing grid output with additional thigns added by this function.
  */
-function mp_stacks_linkgrid_description_animation_js( $linkgrid_output, $post_id ){
+function mp_stacks_linkgrid_description_animation_js( $existing_filter_output, $post_id, $meta_prefix ){
 	
-	//Get JS output to animate the descriptions on mouse over and out
-	$description_animation_js = mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-linkgrid-item-description-holder', mp_core_get_post_meta( $post_id, 'linkgrid_description_animation_keyframes', array() ) ); 
+	if ( $meta_prefix != 'linkgrid' ){
+		return $existing_filter_output;	
+	}
+					
+	//Get JS output to animate the titles on mouse over and out
+	$title_animation_js = mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-linkgrid-item-description-holder', mp_core_get_post_meta( $post_id, 'linkgrid_description_animation_keyframes', array() ) ); 
 
-	return $linkgrid_output . $description_animation_js;
+	return $existing_filter_output .= $title_animation_js;
 }
-add_filter( 'mp_stacks_linkgrid_animation_js', 'mp_stacks_linkgrid_description_animation_js', 10, 2 );
+add_filter( 'mp_stacks_grid_js', 'mp_stacks_linkgrid_description_animation_js', 10, 3 );
 		
 /**
  * Add the CSS for the description to LinkGrid's CSS
