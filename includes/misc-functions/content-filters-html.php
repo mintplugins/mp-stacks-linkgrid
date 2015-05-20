@@ -150,13 +150,19 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 						if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
 							$target = ' target="' . $link['linkgrid_link_open_type'] . '" ';	
 							$lightbox_class = NULL;	
+							$mfp_width_height_attr = NULL;
 						}
 						elseif( $link['linkgrid_link_open_type'] == 'lightbox' ){
 							$target = NULL;
-							$lightbox_class = 'mp-stacks-lightbox-link';	
+							$lightbox_width = $link['linkgrid_lightbox_width'];
+							$lightbox_width = !empty( $lightbox_width ) ? $lightbox_width : '640';
+							$lightbox_height = $link['linkgrid_lightbox_height'];
+							$lightbox_height = !empty( $lightbox_height ) ? $lightbox_height : '360';
+							$lightbox_class = 'mp-stacks-iframe-custom-width-height';	
+							$mfp_width_height_attr = ' mfp-width="' . $lightbox_width . '" mfp-height="' . $lightbox_height . '" ';
 						}
 						
-						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '">';
+						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" ' . $mfp_width_height_attr . '>';
 						
 						$linkgrid_output .= '<img src="' . mp_aq_resize( $link['linkgrid_link_image'], $linkgrid_link_images_width, $linkgrid_link_images_height, true ) . '" class="mp-stacks-grid-item-image" title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" />';
 						
