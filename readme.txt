@@ -3,8 +3,8 @@ Contributors: johnstonphilip
 Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.0.0.4
+Tested up to: 4.3
+Stable tag: 1.0.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,12 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.5 = September 20, 2015
+* Links images show even if no URL is entered
+* Brick Metabox controls now load using ajax.
+* Admin Meta Scripts now enqueued only when needed.
+* Front End Scripts now enqueued only when needed.
 
 = 1.0.0.4 = May 20, 2015
 * Make CSS Filter add to css instead of replacing previous CSS. This fixes bug with Google Fonts Addon not working fi the type was a LinkGrid.
