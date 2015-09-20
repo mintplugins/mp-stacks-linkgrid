@@ -29,6 +29,9 @@ function mp_stacks_brick_content_output_css_linkgrid( $css_output, $post_id, $fi
 		return $css_output;	
 	}
 	
+	//Enqueue all css stylesheets used by grids.
+	mp_stacks_grids_enqueue_frontend_css( 'linkgrid' );
+	
 	//Download per row
 	$linkgrid_per_row = mp_core_get_post_meta($post_id, 'linkgrid_per_row', '3');
 	
@@ -93,7 +96,7 @@ function mp_stacks_brick_content_output_css_linkgrid( $css_output, $post_id, $fi
 	'}';
 	
 	//Get the css output for the image overlay for mobile
-	$css_output .= mp_stacks_grid_overlay_mobile_css( $post_id, 'linkgrid_image_overlay_animation_keyframes' );
+	$css_output .= mp_stacks_grid_overlay_mobile_css( $post_id, 'linkgrid_image_overlay_animation_keyframes', 'linkgrid' );
 	
 	return $css_output;
 	
