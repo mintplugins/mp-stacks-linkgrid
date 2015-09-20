@@ -142,7 +142,7 @@ function mp_stacks_linkgrid_include_files(){
 		/**
 		 * enqueue scripts
 		 */
-		require( MP_STACKS_LINKGRID_PLUGIN_DIR . 'includes/misc-functions/enqueue-scripts.php' );
+		require( MP_STACKS_LINKGRID_PLUGIN_DIR . 'includes/misc-functions/admin-enqueue-scripts.php' );
 		
 		/**
 		 * HTML Content Filters for linkgrid
