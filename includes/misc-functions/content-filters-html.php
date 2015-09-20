@@ -54,7 +54,7 @@ function mp_linkgrid_ajax_load_more(){
 	$post_offset = $_POST['mp_stacks_grid_offset'];
 
 	//Because we run the same function for this and for "Load More" ajax, we call a re-usable function which returns the output
-	$linkgrid_output = mp_stacks_linkgrid_output( $post_id, $post_offset );
+	$linkgrid_output = mp_stacks_linkgrid_output( $post_id, true, $post_offset );
 	
 	echo json_encode( array(
 		'items' => $linkgrid_output['linkgrid_output'],
@@ -75,12 +75,16 @@ add_action( 'wp_ajax_nopriv_mp_stacks_linkgrid_load_more', 'mp_linkgrid_ajax_loa
  * @since    1.0.0
  * @param    Void
  * @param    $post_id Int - The ID of the Brick
+ * @param    $loading_more string - If we are loading more through ajax, this will be true, Defaults to false.
  * @param    $post_offset Int - The number of posts deep we are into the loop (if doing ajax). If not doing ajax, set this to 0;
  * @return   Array - HTML output from the Grid Loop, The Load More Button, and the Animation Trigger in an array for usage in either ajax or not.
  */
-function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
+function mp_stacks_linkgrid_output( $post_id, $loading_more = false, $post_offset = 0 ){
 	
 	global $wp_query;
+	
+	//Enqueue all js scripts used by grids.
+	mp_stacks_grids_enqueue_frontend_scripts( 'linkgrid' );
 	
 	//Get this Brick Info
 	$post = get_post($post_id);
@@ -107,7 +111,7 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 	$grid_placement_options = apply_filters( 'mp_stacks_linkgrid_placement_options', NULL, $post_id );
 	
 	//Get the JS for animating items - only needed the first time we run this - not on subsequent Ajax requests.
-	if ( !defined('DOING_AJAX') ){
+	if ( !$loading_more ){
 		
 		//Here we set javascript for this grid
 		$linkgrid_output .= apply_filters( 'mp_stacks_grid_js', NULL, $post_id, 'linkgrid' );
@@ -115,7 +119,7 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 	}
 	
 	//Grid Container Output
-	$linkgrid_output .= !defined('DOING_AJAX') ? '<div class="mp-stacks-grid mp-stacks-linkgrid ' . apply_filters( 'mp_stacks_grid_classes', NULL, $post_id, 'linkgrid' ) . '">' : NULL;
+	$linkgrid_output .= !$loading_more ? '<div class="mp-stacks-grid mp-stacks-linkgrid ' . apply_filters( 'mp_stacks_grid_classes', NULL, $post_id, 'linkgrid' ) . '">' : NULL;
 	
 	$total_posts = count( $linkgrid_links_repeater );
 	
@@ -140,13 +144,12 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 				if ($linkgrid_link_images_show){
 					
 					$linkgrid_output .= '<div class="mp-stacks-grid-item-image-holder">';
-					
-						$linkgrid_output .= '<div class="mp-stacks-grid-item-image-overlay"></div>';
 						
 						$target = NULL;
 						$lightbox_class = NULL;	
+						$mfp_width_height_attr = NULL;
 							
-						//Get this links open-type
+						//Get this link's open-type
 						if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
 							$target = ' target="' . $link['linkgrid_link_open_type'] . '" ';	
 							$lightbox_class = NULL;	
@@ -162,7 +165,14 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 							$mfp_width_height_attr = ' mfp-width="' . $lightbox_width . '" mfp-height="' . $lightbox_height . '" ';
 						}
 						
-						$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" ' . $mfp_width_height_attr . '>';
+						if ( !empty( $link['linkgrid_link_url'] ) ){
+							$linkgrid_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" ' . $mfp_width_height_attr . '>';
+						}
+						else{
+							$linkgrid_output .= '<div class="mp-stacks-grid-image-no-link ' . $lightbox_class . '" ' . $target . ' title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" ' . $mfp_width_height_attr . '>';
+						}
+						
+						$linkgrid_output .= '<div class="mp-stacks-grid-item-image-overlay"></div>';
 						
 						$linkgrid_output .= '<img src="' . mp_aq_resize( $link['linkgrid_link_image'], $linkgrid_link_images_width, $linkgrid_link_images_height, true ) . '" class="mp-stacks-grid-item-image" title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '" />';
 						
@@ -214,7 +224,12 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 						
 						$linkgrid_output .= '</div>';
 						
-						$linkgrid_output .= '</a>';
+						if ( !empty( $link['linkgrid_link_url'] ) ){
+							$linkgrid_output .= '</a>';
+						}
+						else{
+							$linkgrid_output .= '</div>';	
+						}
 						
 					$linkgrid_output .= '</div>';
 					
@@ -245,7 +260,7 @@ function mp_stacks_linkgrid_output( $post_id, $post_offset = 0 ){
 	}
 	
 	//If we're not doing ajax, add the stuff to close the linkgrid container and items needed after
-	if ( !defined('DOING_AJAX') ){
+	if ( !$loading_more ){
 		$linkgrid_output .= '</div>';
 	}
 	
