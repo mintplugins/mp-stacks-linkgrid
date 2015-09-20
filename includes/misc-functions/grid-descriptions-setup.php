@@ -352,6 +352,7 @@ function mp_stacks_linkgrid_description_below_over_callback( $linkgrid_output, $
 		//Defaults 
 		$target = ' target="" ';	
 		$lightbox_class = NULL;
+		$description_html_output = NULL;
 			
 		//Get this links open-type
 		if ( $link['linkgrid_link_open_type'] == '_blank' || $link['linkgrid_link_open_type'] == '_parent' ){
@@ -362,10 +363,22 @@ function mp_stacks_linkgrid_description_below_over_callback( $linkgrid_output, $
 			$target = NULL;
 			$lightbox_class = 'mp-stacks-lightbox-link';	
 		}
-						
-		$description_html_output = '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-linkgrid-description-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '" title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '">';	
+		
+		if ( !empty( $link['linkgrid_link_url'] ) ){				
+			$description_html_output .= '<a href="' . $link['linkgrid_link_url'] . '" class="mp-stacks-linkgrid-description-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '" title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '">';
+		}
+		else{
+			$description_html_output .= '<div class="mp-stacks-linkgrid-description-no-link mp-stacks-grid-image-link ' . $lightbox_class . '" ' . $target . '" title="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '"  alt="' . htmlspecialchars( strip_tags( $link['linkgrid_link_title'] ) ) . '">';
+		}
+		
 			$description_html_output .= mp_stacks_linkgrid_description( $link, $options['word_limit'] );
-		$description_html_output .= '</a>';
+		
+		if ( !empty( $link['linkgrid_link_url'] ) ){
+			$description_html_output .= '</a>';
+		}
+		else{
+			$description_html_output .= '</div>';
+		}	
 		
 		return $linkgrid_output . $description_html_output;
 	}
@@ -392,7 +405,7 @@ function mp_stacks_linkgrid_description_animation_js( $existing_filter_output, $
 	}
 					
 	//Get JS output to animate the titles on mouse over and out
-	$title_animation_js = mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-linkgrid-item-description-holder', mp_core_get_post_meta( $post_id, 'linkgrid_description_animation_keyframes', array() ) ); 
+	$title_animation_js = mp_core_js_mouse_over_animate_child( '#mp-brick-' . $post_id . ' .mp-stacks-grid-item', '.mp-stacks-linkgrid-item-description-holder', mp_core_get_post_meta( $post_id, 'linkgrid_description_animation_keyframes', array() ), true, true, 'mp-brick-' . $post_id ); 
 
 	return $existing_filter_output .= $title_animation_js;
 }
