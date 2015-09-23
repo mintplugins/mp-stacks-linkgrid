@@ -7,7 +7,7 @@
  * @package    MP Stacks LinkGrid
  * @subpackage Functions
  *
- * @copyright  Copyright (c) 2014, Mint Plugins
+ * @copyright  Copyright (c) 2015, Mint Plugins
  * @license    http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author     Philip Johnston
  */
@@ -157,9 +157,9 @@ function mp_stacks_linkgrid_output( $post_id, $loading_more = false, $post_offse
 						}
 						elseif( $link['linkgrid_link_open_type'] == 'lightbox' ){
 							$target = NULL;
-							$lightbox_width = $link['linkgrid_lightbox_width'];
+							$lightbox_width = isset( $link['linkgrid_lightbox_width'] ) ? $link['linkgrid_lightbox_width'] : NULL;
 							$lightbox_width = !empty( $lightbox_width ) ? $lightbox_width : '640';
-							$lightbox_height = $link['linkgrid_lightbox_height'];
+							$lightbox_height = isset( $link['linkgrid_lightbox_height'] ) ? $link['linkgrid_lightbox_height'] : NULL;
 							$lightbox_height = !empty( $lightbox_height ) ? $lightbox_height : '360';
 							$lightbox_class = 'mp-stacks-iframe-custom-width-height';	
 							$mfp_width_height_attr = ' mfp-width="' . $lightbox_width . '" mfp-height="' . $lightbox_height . '" ';
