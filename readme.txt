@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
 Tested up to: 4.3
-Stable tag: 1.0.0.5
+Stable tag: 1.0.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Extremely simple to set up - allows you to show a grid of links on any page, at 
 
 This section describes how to install the plugin and get it working.
 
-1. Upload the ‘mp-stacks-linkgrid’‚ folder to the ‘/wp-content/plugins/‘ directory
+1. Upload the mp-stacks-linkgrid folder to the /wp-content/plugins/ directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Build Bricks under the Manage Stacks menu. 
 4. Publish your bricks into a Stack.
@@ -32,6 +32,10 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.6 = September 24, 2015
+* Make sure $link['linkgrid_lightbox_height'] is set.
+* Changed grid posts_per_row to use the "mp_stacks_grid_posts_per_row_percentage" function in MP Stacks.
 
 = 1.0.0.5 = September 20, 2015
 * Links images show even if no URL is entered
