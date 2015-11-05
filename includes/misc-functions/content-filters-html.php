@@ -119,7 +119,7 @@ function mp_stacks_linkgrid_output( $post_id, $loading_more = false, $post_offse
 	}
 	
 	//Grid Container Output
-	$linkgrid_output .= !$loading_more ? '<div class="mp-stacks-grid mp-stacks-linkgrid ' . apply_filters( 'mp_stacks_grid_classes', NULL, $post_id, 'linkgrid' ) . '">' : NULL;
+	$linkgrid_output .= !$loading_more ? '<div class="mp-stacks-grid mp-stacks-linkgrid ' . apply_filters( 'mp_stacks_grid_classes', NULL, $post_id, 'linkgrid' ) . '" ' . apply_filters( 'mp_stacks_grid_attributes', NULL, $post_id, 'linkgrid' ) . '>' : NULL;
 	
 	$total_posts = count( $linkgrid_links_repeater );
 	
