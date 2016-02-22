@@ -12,7 +12,7 @@
  * @package    MP Stacks LinkGrid
  * @subpackage Functions
  *
- * @copyright  Copyright (c) 2014, Mint Plugins
+ * @copyright  Copyright (c) 2016, Mint Plugins
  * @license    http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author     Philip Johnston
  */
@@ -80,6 +80,35 @@ function mp_stacks_linkgrid_description_meta_options( $items_array ){
 			'field_value' => '19',
 			'field_showhider' => 'linkgrid_description_settings',
 		),
+		
+		'linkgrid_description_google_font' => array(
+			'field_id'			=> 'linkgrid_description_google_font',
+			'field_title' 	=> __( 'Google Font Name', 'mp_stacks'),
+			'field_description' 	=> 'Enter the name of the Google Font to use for this Text <br /><a class="button" href="https://www.google.com/fonts" target="_blank">Browse Google Fonts<div  style="margin-top: 3.3px; margin-left: 5px;" class="dashicons dashicons-share-alt2"></div></a>',
+			'field_type' 	=> 'textbox',
+			'field_value' => '',
+			'field_placeholder' => __( 'Google Font Name', 'mp_stacks_googlefonts' ),
+			'field_showhider' => 'linkgrid_description_settings',
+		),
+		'linkgrid_description_google_font_weight_style' => array(
+			'field_id'			=> 'linkgrid_description_google_font_weight_style',
+			'field_title' 	=> __( 'Font Weight/Style', 'mp_stacks'),
+			'field_description' 	=> 'Set the weight of this font (If available for your chosen font)',
+			'field_type' 	=> 'select',
+			'field_select_values' => array( 
+				'100' => 'Thin', 
+				'200' => 'Extra-Light', 
+				'300' => 'Light', 
+				'400' => 'Normal', 
+				'500' => 'Medium', 
+				'600' => 'Semi-Bold', 
+				'700' => 'Bold',
+				'900' => 'Ultra-Bold', 
+			),
+			'field_value' => '',
+			'field_showhider' => 'linkgrid_description_settings',
+		),
+		
 		'linkgrid_description_spacing' => array(
 			'field_id'			=> 'linkgrid_description_spacing',
 			'field_title' 	=> __( 'Descriptions\' Spacing', 'mp_stacks_linkgrid'),
@@ -435,3 +464,46 @@ function mp_stacks_linkgrid_description_css( $css_output, $post_id ){
 	return $css_output .= mp_stacks_grid_text_css( $post_id, 'linkgrid_description', 'mp-stacks-linkgrid-item-description', $description_css_defaults );
 }
 add_filter('mp_stacks_linkgrid_css', 'mp_stacks_linkgrid_description_css', 10, 2);
+
+/**
+ * Add the Google Fonts for the Grid Excerpts
+ *
+ * @param    $css_output          String - The incoming CSS output coming from other things using this filter
+ * @param    $post_id             Int - The post ID of the brick
+ * @param    $first_content_type  String - The first content type chosen for this brick
+ * @param    $second_content_type String - The second content type chosen for this brick
+ * @return   $css_output          String - A string holding the css the brick
+ */
+function mp_stacks_linkgrid_description_google_font( $css_output, $post_id, $first_content_type, $second_content_type ){
+	
+	if ( $first_content_type != 'linkgrid' && $second_content_type != 'linkgrid' ){
+		return $css_output;	
+	}
+	
+	global $mp_stacks_footer_inline_css, $mp_core_font_families;
+	
+	//Default settings for the MP Core Google Font Class
+	$mp_core_google_font_args = array( 'echo_google_font_css' => false, 'wrap_in_style_tags' => false );
+	
+	$linkgrid_description_googlefont = mp_core_get_post_meta( $post_id, 'linkgrid_description_google_font' );
+	$linkgrid_description_googlefontweight = mp_core_get_post_meta( $post_id, 'linkgrid_description_google_font_weight_style' );
+	
+	//If a font name has been entered
+	if ( !empty( $linkgrid_description_googlefont ) ){
+		
+		//Check if a font extra (weight) has been selected and add it if so.
+		$linkgrid_description_googlefontweight = isset($linkgrid_description_googlefontweight) && !empty( $linkgrid_description_googlefontweight ) ? ':' . $linkgrid_description_googlefontweight : NULL;
+		$linkgrid_description_googlefont = $linkgrid_description_googlefont . $linkgrid_description_googlefontweight;
+	
+		//Load the Google Font using the Google Font Class in MP Core
+		new MP_CORE_Font( $linkgrid_description_googlefont, $linkgrid_description_googlefont, $mp_core_google_font_args );
+		$mp_stacks_footer_inline_css[$linkgrid_description_googlefont] = $mp_core_font_families[$linkgrid_description_googlefont];
+		
+		//Return the incoming css string plus css to apply this font family to all paragraph tags
+		$css_output .=  '#mp-brick-' . $post_id . ' .mp-stacks-linkgrid-item-description, #mp-brick-' . $post_id . ' .mp-stacks-linkgrid-item-description * { font-family: \'' . $linkgrid_description_googlefont . '\';}';
+	
+	}
+	
+	return $css_output;	
+}
+add_filter('mp_brick_additional_css', 'mp_stacks_linkgrid_description_google_font', 10, 4);	
